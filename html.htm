@@ -1,0 +1,23 @@
+<html id="c">
+<head>
+
+<script type="nodescript">
+	var html = require(__dirname + "html.js");
+	var sys = require("sys");
+	
+	var h = new html(__dirname + "html.htm");
+
+	h.getElementById("b",function(t){
+		t.innerHTML = "Hey Sidd!";
+		console.log(sys.inspect(h, false, null));
+	});
+
+</script>
+
+</head>
+<body>
+	<div id='b'>
+		Hello World!
+	</div>
+</body>
+</html>
