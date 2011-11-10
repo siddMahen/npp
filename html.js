@@ -35,13 +35,21 @@ var fs = require("fs"),
 		htmlparser = require("htmlparser2"),
 		dutil = htmlparser.DomUtils;
 
+/*
+ * @class HTML
+ *
+ * Provides an interface to access and manipulate
+ * HTML data.
+ *
+ * @para {String} file
+ *
+ * @public
+ */
 
 function html(file){
 
 	var self = this;
 	
-	// stuff you might need later
-
 	this._path = file;
 	this._state = 'starting';
 	this._busy = false;
@@ -55,7 +63,7 @@ function html(file){
 
 	var _impl = function(name){
 		return function(){
-			// Wierd hack here...
+			// FIXME: Shouldn't have to do this.
 			var args = [];
 			var i = 0;
 			while(arguments[i]){
@@ -68,7 +76,7 @@ function html(file){
 		};
 	}
 
-	// list of methods
+	// list of methods that you want to queue
 
 	var methods = ["getElements",
 								 "getElementById"];
@@ -77,11 +85,7 @@ function html(file){
 		self[element] = _impl(element);
 	});
 
-	// list the internal function here so 
-	// they remain private and call them below.
-
 	var _cycle = function(){
-		// apply the function with the args from the queue
 		if(self._state == 'started' && self._busy == false){	
 			
 			self._busy = true;
@@ -89,14 +93,12 @@ function html(file){
 			
 			var func = self[next_op.shift()];
 			var args = next_op.pop();
-			// apply the function with the args...
+			
 			func.apply(self, args);
 		}
 	};
 
 	this._cycle = _cycle;
-
-	// this html file is single and ready to mingle
 
 	fs.readFile(file, function(err, data){
 		if(err) throw err;
@@ -121,6 +123,49 @@ function html(file){
 }
 
 /*
+ * HTMLElement
+ *
+ * The obj is expected to be from the _dom ivar.
+ *
+ * @private
+ */
+
+function HTMLElement(obj){
+
+	if(typeof(obj) !== 'object')
+		throw new Error("An object is required.");
+	
+	var self = this;
+	
+	// I can get away with this because it's a non 
+	// prototyped object
+
+	Object.keys(obj).forEach(function(element, index, array){
+		self[element] = obj[element];
+	});
+	
+	//take advantage of __nosuchMethod__
+	// handle special cases here
+	// then use no such method to begin 
+	// defining cases which do not exist
+	// ergo on demand and stuff
+	
+	this.__defineGetter__("innerHTML", function(){	
+		var e = self.children[0];
+		return e.data;
+	});
+
+	this.__defineSetter__("innerHTML", function(data){
+		var e = self.children[0];
+		e.data = data;
+	});
+
+	console.log(this);	
+
+	return this;
+}
+
+/*
  * Returns an array of elements matching the attrs
  *
  * The callback takes the return array as it's only 
@@ -140,6 +185,11 @@ function html(file){
 html.prototype._getElements = function(attr, callback){
 
 	var e = dutil.getElements(attr, this._dom, true);
+	
+	for(var i = 0; i < e.length; i++){
+		e[i] = new HTMLElement(e[i]);
+	}
+
 	return callback(e);
 }
 
@@ -155,18 +205,7 @@ html.prototype._getElementById = function(id, callback){
 	
 	var v = dutil.getElements({ id : id }, this._dom, true);
 	
-	var e = v[0];
-	// eventually create some kind of HTMLElement class
-	// to hold these methods
-	
-	e.__defineGetter__("innerHTML", function(){
-		return e.children[0].data;
-	});
-
-	e.__defineSetter__("innerHTML", function(data){
-		e.children[0].data = data;
-	});
-	
+	var e = new HTMLElement(v[0]);
 	return callback(e);
 }
 // make wrappers for the node-htmlparser DomUtils methods
