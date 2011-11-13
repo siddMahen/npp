@@ -1,0 +1,30 @@
+{
+  "author": "Siddharth Mahendraker <siddharth_mahen@me.com>",
+  "name": "npp",
+  "description": "A server side preprocessor for javascript, based on node.",
+  "version": "1.0.0",
+  "keywords": ["npp", "preprocessing", "preprocessor"],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/siddMahen/npp.git"
+  },
+  "bugs": { 
+  	"url": "http://github.com/siddMahen/npp/issues",
+  	"email": "siddharth_mahen@me.com" 
+  },
+  "main": "index",
+  "scripts": {
+		"test": "vows test/*"
+  },
+  "engines": {
+    "node": ">=0.4.12"
+  },
+  "dependencies": {},
+  "devDependencies": {
+  	"vows": ">=0.5.13"
+  },
+  "directories": {
+		"lib": "./lib",
+		"test: "./test"
+  }
+}
