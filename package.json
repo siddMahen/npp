@@ -3,6 +3,7 @@
   "name": "npp",
   "description": "HTML preprocessing in javascript using node.js",
   "version": "1.0.0",
+  "keywords": ["preprocessing", "HTML"],
   "repository": {
     "type": "git",
     "url": "git://github.com/siddMahen/npp.git"
