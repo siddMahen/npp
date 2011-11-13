@@ -10,7 +10,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "vows --spec test/*"
+    "test": "vows --spec test/test-*"
   },
   "engines": {
     "node": ">=0.4.12"

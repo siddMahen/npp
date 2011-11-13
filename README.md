@@ -16,9 +16,13 @@ To include `npp` in your project:
 
 ## Tests:
 
-To run the tests:
+To run the tests, install `vows` using npm or install `npp` with the `--dev` key:
 
-	//TODO: write tests!
+	npm install vows
+	
+or
+
+	npm install npp --dev
 
 ## Example:
 
