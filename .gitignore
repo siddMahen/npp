@@ -1,2 +1,3 @@
 .DS_Store
 makefile
+/node_modules
