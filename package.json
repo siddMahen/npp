@@ -10,12 +10,14 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "vows --spec test/test-*"
+    "test": "vows --spec test/test-*.js"
   },
   "engines": {
     "node": ">=0.4.12"
   },
-  "dependencies": {},
+  "dependencies": {
+  	"htmlparser2"; ">=1.5.0"
+  },
   "devDependencies": {
   	"vows": ">=0.5.13"
   }

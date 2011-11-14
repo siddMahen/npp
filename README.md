@@ -4,6 +4,44 @@ npp allows you to perform server side preprocessing
 for HTML files, similar to PHP, except in javascript
 and using the node.js framework.
 
+## Example:
+
+Suppose this is the HTML file I want to process, let's call 
+it `epic.html`:
+
+	<html>
+		<head>
+			<script type="npp">
+				nppdom.getElementById("epictag", function(epictag){
+					epictag.html = "Examples are epic!";
+					nppdom.done();
+				});
+			</script>
+		</head>
+		<body>
+			<div id="epictag">
+			</div>
+		</body>
+	</html>
+
+It can be processed like this:
+
+	var http = require("http"),
+			npp = require("npp");
+
+	http.createServer(function(req, res){
+		npp("path/to/epic.html", res);
+	}).listen(8000);
+
+The code above simply gets the tag whose id is `epictag`, 
+and adds "Examples are epic!" as it's inner html.
+
+Note the `nppdom.done()` method, which is required 
+to tell `npp` your done editing the page.
+
+This is a very basic example. See the examples folder and the 
+documentation (to come) for more details.
+
 ## Installation and Usage:
 
 Using `npm`:
@@ -23,10 +61,6 @@ To run the tests, install `vows` using npm or install `npp` with the `--dev` key
 or
 
 	npm install npp --dev
-
-## Example:
-
-See the examples folder for more.
 
 ## License:
 
