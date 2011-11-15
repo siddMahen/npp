@@ -1,61 +1,88 @@
-# Specifications and HTLMElement classes
+# Specifications: npp
 
-## HTML
+# Server Side Interface
 
-This class should easily facilitate the retrival,
-removal, rearrangment and creation of new HTML
-DOM elements.
-
-Methods to Emulate:
-
-	getElementById(id, callback)
-	getElements(attrs, callback)
-	
-
-## HTMLElement
-
-This will be the object actually representing individual
-instances of the DOM elements, oftentimes seen in 
-the `callback` of HTML methods. 
-
-Methods to Emulate:
-
-	set/get html
-	set/get attributes
-	set/get children 
-
-## Final npp npm Package
-
-This callback should accept a file or a stream as a
-parameter and either return the npp-HTML file
-run, or write the contents of the npp-HTML 
-file to the stream. This relies mostly on the 
-running of 
-
-Example:
+`npp` should be implemented such that it can be 
+passed any Writable Stream or callback and return 
+the preprocessed HTML page, either by writing it
+to the stream and closing the stream or through a
+data parameter in the callback. For example:
 
 	var http = require("http"),
-			npp = require("npp");
+		npp  = require("npp");
 
 	http.createServer(function(req, res){
-		npp("file.html",res);
+		npp("path/to/html.html", res);
 	}).listen(8000);
 
-	OR
+Or:
 
 	http.createServer(function(req, res){
-		...
-		// check the req
-		var file = "path/to/some/file";
-		...
-		//check cache...
-		var parsedHTML = npp(file);
-		...
-		//add to the cache if not existant
-		res.end(parsedHTML);
-	}).listen(8001);
+		npp("path/to/html.html", function(data){
+			//do something with the data
+			res.write(data);
+			//do something else
+			res.end();
+		});	
+	});
 
-Current Problems:
+# HTML Side Interface
 
-* Requires the user to use `nppdom.done()` when
-finished with the script. Kinda annoying.
+Keeping in terms with standard HTML style, `npp` merely
+requires a `<script>` tag with `type` attribute set to 
+`npp`. This allows easy integration into HTML pages, and
+allows the page to maintain it's structed. All commands
+typed inside this area will be treated as V8 Javascript
+and will have access to all node.js object and classes.
+For example:
+
+	<html>
+		<head>
+			<script type="npp">
+			 var http = require("http");
+			 // node.js calls
+			 console.log(http);
+			</script>
+		</head>
+		<body>
+		// HTML...
+		</body>
+	</html>
+
+The DOM will be accessed through a global singleton
+available through each instance of the `<script>` tags.
+It will have access to all of the DOM elements using 
+standardized DOM access implementations such as 
+
+	getElementById(id, callback)
+	getElements(attribs, callback)
+
+The DOM elements returned in the callbacks of these
+methods will function similarly to jQuery elements, 
+(especially with regard to attribute access methods)
+with a few additions. The DOM elements will most likely
+be returned in callbacks due to the asyncronous nature
+of the node.js event loop. Also, this will mean that
+a special function, `done` or something of the like
+will need to be called once the user is done editing the 
+markup, as it is impossible to trace the end of async 
+calls unless you write them. Therefore, the above HTML
+would look more like:
+
+
+	<html>
+		<head>
+			<script type="npp">
+			 var http = require("http");
+			 // node.js calls
+			 console.log(http);
+			 // tells npp we're done
+			 global_singleton.done();
+			</script>
+		</head>
+		<body>
+		// HTML...
+		</body>
+	</html>
+
+
