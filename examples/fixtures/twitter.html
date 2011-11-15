@@ -11,21 +11,21 @@
 			};
 
 			var data = "";
-
+			
 			http.get(options, function(res){
 				res.setEncoding('utf8');
 
 				res.on('data', function(chunk){
 					data += chunk;
 				});
-
+				
 				res.on('end', function(){
 					nppdom.getElementById("feed", function(feed){
 						var r = JSON.parse(data);
 						r.results.forEach(function(element, index, array){
-							var newE = nppdom.createTag("p",element.text);  
+							var newE = nppdom.createTag("p", element.text);  
 							feed.append(newE);
-						});	
+						});
 						nppdom.done();
 					});
 				});

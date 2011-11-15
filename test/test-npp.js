@@ -60,22 +60,10 @@ suite.addBatch({
 .addBatch({
 	"npp in callback mode":{
 		topic: function(){
-			var promise = new events.EventEmitter();
-			http.createServer(function(req, res){
-				npp(prefix+"test-npp.html", function(data){
-					res.write(data);
-					res.end();
-				});
-			}).listen(port+1);
-			setupGet(promise);
-
-			return promise;
+			npp(prefix+"test-npp.html", this.callback);
 		},
-		"should work as expected": function(err, res, data){
-			assert.isNull(err);
-			assert.equal("200", res.statusCode);
+		"should work as expected": function(data, err){
 			assert.isString(data);
-				//Same as above
 			assert.equal(html, data);
 		}
 	}
