@@ -6,8 +6,8 @@ and using the node.js framework.
 
 ## Example:
 
-Suppose this is the HTML file I want to process, let's call 
-it `epic.html`:
+Suppose you want to preprocess an HTML page, called `epic.html`,
+which looks a little like this:
 
 	<html>
 		<head>
@@ -34,7 +34,8 @@ It can be processed like this:
 	}).listen(8000);
 
 The code above simply gets the tag whose id is `epictag`, 
-and adds "Examples are epic!" as it's inner html.
+and adds "Examples are epic!" as it's inner html. The new
+HTML is then written to `res` and to the client. 
 
 Note the `nppdom.done()` method, which is required 
 to tell `npp` your done editing the page.

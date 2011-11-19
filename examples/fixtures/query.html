@@ -1,0 +1,17 @@
+<html>
+	<head>
+		<script type="npp">
+			nppdom.getElementById("text", function(p){
+				var url = nppdom.createTag("p", nppreq.url);
+				var method = nppdom.createTag("p", nppreq.method);
+				p.append(url);
+				p.append(method);
+				nppdom.done();
+			});
+		</script>
+	</head>
+	<body>
+		<p id="text">
+		</p>
+	</body>
+</html>
