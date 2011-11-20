@@ -1,6 +1,6 @@
 # npp - node.js preprocessing
 
-npp allows you to perform server side preprocessing 
+`npp` allows you to perform server side preprocessing 
 for HTML files, similar to PHP, except in javascript
 and using the node.js framework.
 
@@ -49,19 +49,19 @@ Using `npm`:
 
 	npm install npp
 
-To include `npp` in your project:
-
-	var npp = require("npp");
-
 ## Tests:
 
-To run the tests, install `vows` using npm or install `npp` with the `--dev` key:
+To run the tests, install `stest` using npm or install `npp` with the `--dev` key:
 
-	npm install vows
+	npm install stest
 	
-or
+Or
 
 	npm install npp --dev
+
+Then run:
+
+	npm test npp
 
 ## License:
 
@@ -87,5 +87,3 @@ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
 ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-

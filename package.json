@@ -1,8 +1,8 @@
 {
   "author": "Siddharth Mahendraker <siddharth_mahen@me.com>",
   "name": "npp",
-  "description": "HTML preprocessing in javascript using node.js",
-  "version": "0.0.1",
+  "description": "Amazing HTML preprocessing using JavaScript",
+  "version": "0.0.2",
   "keywords": [
     "preprocessing",
     "HTML"
@@ -13,7 +13,7 @@
   },
   "main": "lib/npp.js",
   "scripts": {
-    "test": "srunner -r test/test-*.js"
+    "test": "srunner -r test/test-.*\\.js"
   },
   "engines": {
     "node": ">=0.4.12"
@@ -22,6 +22,6 @@
     "htmlparser2": ">=1.5.0"
   },
   "devDependencies": {
-    "stest": ">=0.0.1"
+    "stest": ">=0.0.3"
   }
 }

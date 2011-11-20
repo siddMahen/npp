@@ -1,5 +1,5 @@
 var http = require("http"),
-		npp = require("../lib/npp");
+	npp = require("npp");
 
 http.createServer(function(req, res){
 	npp("fixtures/twitter.html", res);
