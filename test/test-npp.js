@@ -1,71 +1,36 @@
-var vows = require("vows"),
-		assert = require("assert"),
-		npp = require("../lib/npp"),
-		http = require("http"),
-		events = require("events");
+var stest = require("stest"),
+	assert = require("assert"),
+	npp = require("../lib/npp");
 
 // Constants
-var prefix = "./test/fixtures/";
-var port = 9876;
-var options = { host: "localhost", port: port, path: "/" };
+var pre = __dirname+"/fixtures/";
 var html = "<html><head><script type='npp'></script></head><body></body></html>";
 
-// Macros
-var startServer = function(file){	
-	http.createServer(function(req, res){
-		npp(prefix+file, res);
-	}).listen(port);
-};
+var opts = { timeout: 0 };
 
-var setupGet = function(promise){
-	// Assuming promise is an EventEmitter
-	var data = "";
-	http.get(options, function(res){
-		res.setEncoding("utf8");
-		res.on("data", function(chunk){
-			data += chunk;
-		});
-
-		res.on("end", function(){
-			promise.emit('success', res, data);
-		});
-	}).on("error", function(e){
-		promise.emit('error', e);
-	});
-};
-
-
-// Tests
-var suite = vows.describe("npp - Basic Functionality");
-
-suite.addBatch({
-	"npp in stream mode": {
-		topic: function(){ 
-			var promise = new events.EventEmitter();		
-			
-			startServer("test-npp.html");
-			setupGet(promise);
-
-			return promise;
-		},
-		"should work as expected": function(err, res, data){
-			assert.isNull(err);
-			assert.equal("200", res.statusCode);
-			assert.isString(data);
-				//TODO: completely remove <script type='npp'>
-			assert.equal(html, data);
-		}
+stest
+.addCase("npp - stream mode", opts, {
+	setup: function(promise){
+		var data = "";
+		var stream = {};
+		stream.writable = true;
+		stream.write = function(chunk){ data += chunk; };
+		stream.end = function(){ promise.emit("data", data); };
+		npp(pre+"test-npp.html", stream);
+	},
+	data: function(data){
+		assert.equal(html, data);
 	}
 })
-.addBatch({
-	"npp in callback mode":{
-		topic: function(){
-			npp(prefix+"test-npp.html", this.callback);
-		},
-		"should work as expected": function(data, err){
-			assert.isString(data);
-			assert.equal(html, data);
-		}
+.addCase("npp - callback mode", opts, {
+	setup: function(promise){
+		npp(pre+"test-npp.html", function(data){
+			promise.emit("data", data);
+		});
+	},
+	data: function(data){
+		assert.equal(html, data);
 	}
-}).export(module);
+})
+.run();
 
