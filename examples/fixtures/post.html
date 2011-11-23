@@ -1,0 +1,15 @@
+<html>
+	<head>
+		<script type="npp">
+			nppdom.getElementById("info", function(info){
+				// the POST data
+				info.html = nppmeta.post;
+				nppdom.done();
+			});
+		</script>
+	</head>
+	<body>
+	<p id="info">
+	</p>
+	</body>
+</html>

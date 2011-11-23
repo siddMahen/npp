@@ -2,8 +2,8 @@
 	<head>
 		<script type="npp">
 			nppdom.getElementById("text", function(p){
-				var url = nppdom.createTag("p", nppreq.url);
-				var method = nppdom.createTag("p", nppreq.method);
+				var url = nppdom.createTag("p", nppmeta.req.url);
+				var method = nppdom.createTag("p", nppmeta.req.method);
 				p.append(url);
 				p.append(method);
 				nppdom.done();
