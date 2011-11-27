@@ -4,7 +4,7 @@ var stest = require("stest"),
 
 // Constants
 var pre = __dirname+"/fixtures/";
-var html = "<html><head><script type='npp'></script></head><body></body></html>";
+var html = "<html><head></head><body></body></html>";
 
 var opts = { timeout: 0 };
 

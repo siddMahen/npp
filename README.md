@@ -35,13 +35,13 @@ It can be processed like this:
 
 The code above simply gets the tag whose id is `epictag`, 
 and adds "Examples are epic!" as it's inner html. The new
-HTML is then written to `res` and to the client. 
+HTML is then written to `res` and `res` is closed. 
 
 Note the `nppdom.done()` method, which is required 
-to tell `npp` your done editing the page.
+to tell `npp` your done editing the HTML.
 
-This is a very basic example. See the examples folder and the 
-documentation (to come) for more details.
+This is a very basic example. See the examples folder and 
+the in code documentation for details.
 
 ## Installation and Usage:
 
