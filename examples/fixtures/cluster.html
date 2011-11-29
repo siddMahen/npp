@@ -1,0 +1,14 @@
+<html>
+	<head>
+		<script type="npp">
+			nppdom.getElementById("text",function(text){
+				text.html = "Hello from npp running a cluster!";
+				nppdom.done();
+			});
+		</script>
+	</head>
+	<body>
+		<p id="text">
+		</p>
+	</body>
+</html>
