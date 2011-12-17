@@ -6,12 +6,12 @@
 
 			var options = {
 				host: 'search.twitter.com',
-		    port: 80,
-		    path: '/search.json?q=awesome&lang=en&page=1&rpp=25&result_type=recent'
+		    	port: 80,
+		    	path: '/search.json?q=awesome&lang=en&page=1&rpp=25&result_type=recent'
 			};
 
 			var data = "";
-			
+
 			http.get(options, function(res){
 				res.setEncoding('utf8');
 
@@ -20,11 +20,12 @@
 				});
 				
 				res.on('end', function(){
-					nppdom.getElementById("feed", function(feed){
+					nppdom.$("#feed", function(err, feed){
+						if(err) throw err;
 						var r = JSON.parse(data);
 						r.results.forEach(function(element, index, array){
-							var newE = nppdom.createTag("p", element.text);  
-							feed.append(newE);
+							var newc = nppdom.createTag("p", element.text);
+							feed.append(newc);;
 						});
 						nppdom.done();
 					});
@@ -32,7 +33,6 @@
 			});		
 		</script>
 	</head>
-
 	<body>
 		<div id="feed">	
 		</div>
