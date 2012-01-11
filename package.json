@@ -19,9 +19,9 @@
     "node": ">=0.4.12"
   },
   "dependencies": {
-    "htmlparser2": ">=2.0.0"
+    "cheerio": ">=0.4.1"
   },
   "devDependencies": {
-    "stest": ">=0.0.3"
+    "stest": ">=0.0.7"
   }
 }

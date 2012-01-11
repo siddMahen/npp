@@ -1,10 +1,8 @@
 <html>
 	<head>
 		<script type="npp">
-			nppdom.getElementById("text",function(text){
-				text.html = "Hello from npp running a cluster!";
-				nppdom.done();
-			});
+            $("#text").text("Hello from npp running a cluster!");
+		    $.done();
 		</script>
 	</head>
 	<body>

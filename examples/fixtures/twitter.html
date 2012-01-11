@@ -10,31 +10,26 @@
 		    	path: '/search.json?q=awesome&lang=en&page=1&rpp=25&result_type=recent'
 			};
 
-			var data = "";
-
 			http.get(options, function(res){
 				res.setEncoding('utf8');
 
-				res.on('data', function(chunk){
-					data += chunk;
-				});
-				
+			    var data = "";
+				res.on('data', function(chunk){ data += chunk });
+
 				res.on('end', function(){
-					nppdom.$("#feed", function(err, feed){
-						if(err) throw err;
-						var r = JSON.parse(data);
-						r.results.forEach(function(element, index, array){
-							var newc = nppdom.createTag("p", element.text);
-							feed.append(newc);;
-						});
-						nppdom.done();
-					});
+					var feed = $("#feed");
+                    JSON.parse(data).results.forEach(function(element){
+                        feed.append("<p>"+element.text+"</p>");
+                    });
+
+                    // Signal you're done
+					$.done();
 				});
-			});		
+			});
 		</script>
 	</head>
 	<body>
-		<div id="feed">	
+		<div id="feed">
 		</div>
 	</body>
 </html>

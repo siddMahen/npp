@@ -1,6 +1,6 @@
 var stest = require("stest"),
 	assert = require("assert"),
-	npp = require("../lib/npp");
+    npp = stest.cover("../lib/npp.js");
 
 // Constants
 var pre = __dirname+"/fixtures/";
@@ -19,7 +19,8 @@ stest
 		npp(pre+"test-npp.html", stream);
 	},
 	data: function(data){
-		assert.equal(html, data);
+        // Bad practice, remove spaces from parsing
+		assert.equal(html, data.replace(/\s/g,""));
 	}
 })
 .addCase("npp - callback mode", opts, {
@@ -27,10 +28,34 @@ stest
 		npp(pre+"test-npp.html", function(data){
 			promise.emit("data", data);
 		});
+        npp(pre+"test-npp.html", function(data){
+            promise.emit("data", data);
+        });
 	},
 	data: function(data){
-		assert.equal(html, data);
+		assert.equal(html, data.replace(/\s/g,""));
 	}
 })
+.addCase("npp - edge cases", { sync: true }, {
+    invalid: function(){
+        assert.throws(function(){
+            npp({}, function(){});
+        });
+    },
+    nothing: function(){
+        assert.throws(function(){
+            npp();
+        });
+        assert.ok(0);
+    },
+    noarg: function(){
+        assert.throws(function(){
+            npp(pre+"test-npp.html");
+        });
+    },
+    teardown: function(){
+        this.errors = [];
+        console.log(this.errors);
+    }
+})
 .run();
-

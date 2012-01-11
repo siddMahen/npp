@@ -1,13 +1,13 @@
 <html>
 	<head>
 		<script type="npp">
-			nppdom.getElementById("text", function(p){
-				var url = nppdom.createTag("p", nppmeta.req.url);
-				var method = nppdom.createTag("p", nppmeta.req.method);
-				p.append(url);
-				p.append(method);
-				nppdom.done();
-			});
+            var p = $("#text");
+            var url = $("<p>"+nppmeta.req.url+"</p>");
+            var method = $("<p>"+nppmeta.req.method+"</p>");
+
+            p.append(url);
+			p.append(method);
+			$.done();
 		</script>
 	</head>
 	<body>

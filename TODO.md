@@ -1,7 +1,5 @@
 # TODO
 
-* Make tests for $()
-* Include an err and elem for every
-element manipulating func
+* Add tests to complete code coverage
 * Get a benchmark for this beast!
 * Raw buffer support?

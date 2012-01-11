@@ -1,11 +1,8 @@
 <html>
 	<head>
 		<script type="npp">
-			nppdom.getElementById("info", function(info){
-				// the POST data
-				info.html = nppmeta.post;
-				nppdom.done();
-			});
+            $("#info").text(nppmeta.post);
+            $.done();
 		</script>
 	</head>
 	<body>

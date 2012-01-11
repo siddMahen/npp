@@ -3,14 +3,13 @@
 		<script type="npp">
 			var GridFS = require("GridFS").GridFS;
 			var fs = new GridFS("test");
-			
-			nppdom.getElementById("data", function(p){
-				fs.get("test.txt", function(err, data){
-					if(err) throw err;
-					p.html = data.toString("utf8");
-					nppdom.done();
-				});
-			});
+
+            var p = $("#data");
+		    fs.get("test.txt", function(err, data){
+                if(err) throw err;
+                p.text(data.toString("utf8"));
+		      	$.done();
+            });
 		</script>
 	</head>
 	<body>
