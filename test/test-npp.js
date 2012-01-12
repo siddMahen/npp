@@ -36,7 +36,12 @@ stest
 		assert.equal(html, data.replace(/\s/g,""));
 	}
 })
-.addCase("npp - edge cases", { sync: true }, {
+.addCase("npp - edge cases", opts, {
+	setup: function(promise){
+		promise.emit("invalid");
+		promise.emit("nothing");
+		promise.emit("noarg");
+	},
     invalid: function(){
         assert.throws(function(){
             npp({}, function(){});
@@ -46,16 +51,11 @@ stest
         assert.throws(function(){
             npp();
         });
-        assert.ok(0);
     },
     noarg: function(){
         assert.throws(function(){
             npp(pre+"test-npp.html");
         });
-    },
-    teardown: function(){
-        this.errors = [];
-        console.log(this.errors);
     }
 })
 .run();
