@@ -1,3 +1,4 @@
+```
 This is ApacheBench, Version 2.3 <$Revision: 655654 $>
 Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
 Licensed to The Apache Software Foundation, http://www.apache.org/
@@ -58,3 +59,4 @@ Percentage of the requests served within a certain time (ms)
   98%   2020
   99%   4031
  100%  19054 (longest request)
+```

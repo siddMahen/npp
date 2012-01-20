@@ -1,4 +1,4 @@
-# npp - node.js preprocessing
+# npp
 
 `npp` allows you to perform server side preprocessing
 for HTML files, similar to PHP, except in javascript
@@ -12,10 +12,8 @@ which looks a little like this:
 	<html>
 		<head>
 			<script type="npp">
-				nppdom.getElementById("epictag", function(epictag){
-					epictag.html = "Examples are epic!";
-					nppdom.done();
-				});
+				$("#epictag").text("Examples are epic!");
+                $.done();
 			</script>
 		</head>
 		<body>
@@ -27,7 +25,7 @@ which looks a little like this:
 It can be processed like this:
 
 	var http = require("http"),
-			npp = require("npp");
+		npp = require("npp");
 
 	http.createServer(function(req, res){
 		npp("path/to/epic.html", res);
@@ -37,7 +35,7 @@ The code above simply gets the tag whose id is `epictag`,
 and adds "Examples are epic!" as it's inner html. The new
 HTML is then written to `res` and `res` is closed.
 
-Note the `nppdom.done()` method, which is required
+Note the `$.done()` method, which is required
 to tell `npp` your done editing the HTML.
 
 This is a very basic example. See the examples folder and

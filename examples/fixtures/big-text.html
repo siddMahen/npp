@@ -1,14 +1,14 @@
 <html>
-	<head>
-		<script type="npp">
-			require("fs").readFile("large-text.txt", function(err, data){
-            	$("#text").text(data.toString("utf8"));
-				$.done();
-			});
-		</script>
-	</head>
-	<body>
-		<p id="text">
-		</p>
-	</body>
+    <head>
+        <script type="npp">
+            require("fs").readFile("large-text.txt", function(err, data){
+                $("#text").text(data.toString("utf8"));
+                $.done();
+            });
+        </script>
+    </head>
+    <body>
+        <p id="text">
+        </p>
+    </body>
 </html>
